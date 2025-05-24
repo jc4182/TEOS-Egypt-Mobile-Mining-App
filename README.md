@@ -21,3 +21,25 @@ The $TEOS app engages users through gamified token mining, interactive Egyptian 
 Built with **React Native** for iOS/Android, **Solana’s SPL Token Standard**, and **Rust smart contracts**, the app surpasses competitors like Pi Network, Bee Network, and Sidra Chain by blending entertainment, education, and cultural significance.
 
 ## Repository Structure
+
+## Getting Started
+
+### Prerequisites
+- **Node.js**: v18.x LTS
+- **Yarn**: v1.22+
+- **Rust**: v1.70+
+- **Solana CLI**: v1.16+
+- **React Native CLI**: Latest
+- **Xcode**: v15+ (iOS)
+- **Android Studio**: 2023.1+ (Android)
+- **Docker**: v24.0+
+- **MongoDB**: v6.0+
+- **Redis**: v7.0+
+- **Stripe CLI**: For USD payments
+
+### Installation
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/Elmahrosa/mineteos.git
+   cd mineteos
