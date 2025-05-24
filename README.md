@@ -18,7 +18,7 @@ The $TEOS app engages users through gamified token mining, interactive Egyptian 
 - **Meme Creation**: Egyptian-themed meme tools with contest rewards.
 - **Security**: AES-256 encryption, 2FA via Auth0, reCAPTCHA v3, and ML-based anti-bot detection.
 
-Built with **React Native** for iOS/Android, **Solana’s SPL Token Standard**, and **Rust smart contracts**, the app surpasses competitors like Pi Network, Bee Network, and Sidra Chain by blending entertainment, education, and cultural significance.
+Built with React Native for iOS/Android, Solana’s SPL Token Standard, and Rust smart contracts, the app surpasses competitors like Pi Network, Bee Network, and Sidra Chain by blending entertainment, education, and cultural significance.
 
 ## Repository Structure
 
@@ -36,10 +36,30 @@ Built with **React Native** for iOS/Android, **Solana’s SPL Token Standard**, 
 - **MongoDB**: v6.0+
 - **Redis**: v7.0+
 - **Stripe CLI**: For USD payments
+## Getting Started
 
-### Installation
+### Prerequisites
+- **Node.js**: v18.x LTS
+- **Yarn**: v1.22+
+- **Rust**: v1.70+
+- **Solana CLI**: v1.16+
+- **React Native CLI**: Latest
+- **Xcode**: v15+ (iOS)
+- **Android Studio**: 2023.1+ (Android)
+- **Docker**: v24.0+
+- **MongoDB**: v6.0+
+- **Redis**: v7.0+
+- **Stripe CLI**: For USD payments
+solana program deploy target/deploy/teos_egypt_token.so
+cd mobile-app
+yarn ios
+yarn android
+cd contracts
+anchor test
+cd mobile-app
+yarn test
+node scripts/deploy.js
+cd mobile-app
+yarn build:ios
+yarn build:android
 
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/Elmahrosa/mineteos.git
-   cd mineteos
