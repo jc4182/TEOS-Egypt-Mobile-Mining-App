@@ -1,8 +1,8 @@
 # mineteos
-Repository created autonomously  by Elmahrosa international 
+Repository created autonomously  by Elmahrosa International 
 # $TEOS Egypt Mobile Mining App
 
-Welcome to the official repository for the **$TEOS Egypt Mobile Mining App**, a culturally significant cryptocurrency application developed exclusively by **Elmahrosa International**. Powered by **Blitzy System 2 AI**, this app integrates **Solana blockchain** technology with gamified mining and Egyptian cultural education, designed for the **Pi Network community** with a **Global Community Value (GCV) of 314159$** in $TEOS tokens, capped at **500M $TEOS** and limited to the first **100,000 Pi Network Pioneers**.
+Welcome to the official repository for the **$TEOS Egypt Mobile Mining App**, a culturally significant cryptocurrency application developed exclusively by **Elmahrosa International** this app integrates **Solana blockchain** technology with gamified mining and Egyptian cultural education, designed for the **Pi Network community** with a **Global Community Value (GCV) of 314159$** in $TEOS tokens, capped at **500M $TEOS** and limited to the first **100,000 Pi Network Pioneers**.
 
 ## Overview
 
