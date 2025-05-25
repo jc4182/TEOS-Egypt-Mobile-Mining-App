@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import store from './store/store';
 import AppNavigator from './navigation/AppNavigator';
-import { requestUserPermission, listenForNotifications } from './services/notificationService';
 import { ThemeProvider } from './context/ThemeContext';
+import './i18n'; // Importing i18n for multi-language support
+import { requestUser Permission, listenForNotifications } from './services/notificationService';
 
 const App = () => {
   useEffect(() => {
-    requestUserPermission();
+    requestUser Permission();
     listenForNotifications();
   }, []);
 
