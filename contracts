@@ -1,1 +1,106 @@
+// contracts/programs/teos-contracts/src/subscription.rs
+use anchor_lang::prelude::*;
+use anchor_spl::token::{self, Mint, Token, TokenAccount};
 
+declare_id!("YOUR_SUBSCRIPTION_PROGRAM_ID");
+
+#[program]
+pub mod teos_subscription {
+    use super::*;
+
+    pub fn activate_subscription(ctx: Context<ActivateSubscription>, user: Pubkey, duration: u64) -> Result<()> {
+        let subscription = &mut ctx.accounts.subscription;
+        let state = &mut ctx.accounts.state;
+        require!(state.total_pioneers < 100_000, ErrorCode::PioneerLimitReached);
+        subscription.user = user;
+        subscription.expiry = Clock::get()?.unix_timestamp + duration;
+        subscription.active = true;
+        state.total_pioneers += 1;
+        Ok(())
+    }
+
+    pub fn claim_gcv_bonus(ctx: Context<ClaimGcvBonus>, user: Pubkey) -> Result<()> {
+        let subscription = &ctx.accounts.subscription;
+        let gcv_pool = &mut ctx.accounts.gcv_pool;
+        let state = &ctx.accounts.state;
+        require!(subscription.active, ErrorCode::InactiveSubscription);
+        require!(subscription.user == user, ErrorCode::Unauthorized);
+        require!(state.total_pioneers <= 100_000, ErrorCode::PioneerLimitReached);
+        require!(gcv_pool.total <= 500_000_000, ErrorCode::GcvLimitReached);
+        let bonus = gcv_pool.total / gcv_pool.subscribers;
+        gcv_pool.total -= bonus;
+        gcv_pool.subscribers -= 1;
+
+        let cpi_accounts = token::MintTo {
+            mint: ctx.accounts.mint.to_account_info(),
+            to: ctx.accounts.user_token_account.to_account_info(),
+            authority: ctx.accounts.mint_authority.to_account_info(),
+        };
+        let cpi_program = ctx.accounts.token_program.to_account_info();
+        token::mint_to(CpiContext::new(cpi_program, cpi_accounts), bonus)?;
+        Ok(())
+    }
+}
+
+#[derive(Accounts)]
+pub struct ActivateSubscription<'info> {
+    #[account(init, payer = payer, space = 8 + 32 + 8 + 1)]
+    pub subscription: Account<'info, Subscription>,
+    #[account(mut)]
+    pub state: Account<'info, GlobalState>,
+    #[account(mut)]
+    pub payer: Signer<'info>,
+    pub system_program: Program<'info, System>,
+}
+
+#[derive(Accounts)]
+pub struct ClaimGcvBonus<'info> {
+    #[account(mut)]
+    pub subscription: Account<'info, Subscription>,
+    #[account(mut)]
+    pub gcv_pool: Account<'info, GcvPool>,
+    #[account(mut)]
+    pub state: Account<'info, GlobalState>,
+    #[account(mut, constraint = mint.key() == Pubkey::from_str("AhXBUQmbhv9dNoZCiMYmXF4Gyi1cjQthWHFhTL2CJaSo").unwrap())]
+    pub mint: Account<'info, Mint>,
+    #[account(mut)]
+    pub user_token_account: Account<'info, TokenAccount>,
+    #[account(mut)]
+    pub mint_authority: Signer<'info>,
+    pub user: Signer<'info>,
+    pub token_program: Program<'info, Token>,
+    pub system_program: Program<'info, System>,
+}
+
+#[account]
+pub struct Subscription {
+    pub user: Pubkey,
+    pub expiry: i64,
+    pub active: bool,
+}
+
+#[account]
+pub struct GcvPool {
+    pub total: u64, // Up to 500M $TEOS
+    pub subscribers: u64,
+}
+
+#[account]
+pub struct GlobalState {
+    pub total_pioneers: u64,
+}
+
+#[error_code]
+pub enum ErrorCode {
+    #[msg("Subscription is inactive")]
+    InactiveSubscription,
+    #[msg("Unauthorized user")]
+    Unauthorized,
+    #[msg("Pioneer limit of 100,000 reached")]
+    PioneerLimitReached,
+    #[msg("GCV limit of 500M $TEOS reached")]
+    GcvLimitReached,
+}2. Subscription.rs
+This contract manages the 5USDsubscription(verifiedoff−chainviaStripe)andtheGCV3141595 USD subscription (verified off-chain via Stripe) and the GCV 3141595 USD subscription (verified off-chain via Stripe) and the GCV 314159
+ bonus pool, enforcing the 500M $TEOS cap and 100,000 Pioneer limit.
+rust
