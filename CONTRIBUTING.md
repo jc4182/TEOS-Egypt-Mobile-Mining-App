@@ -76,12 +76,3 @@ By contributing to this project, you agree that your contributions will be licen
 Please note that this project is governed by a [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
 
 Thank you for your contributions! We appreciate your help in making the **TEOS-Egypt-Mobile-Mining-App** better for everyone.
-```
-
-### Key Features of This `CONTRIBUTING.md`:
-
-1. **Clear Structure**: The document is organized with headings and a table of contents for easy navigation.
-2. **Actionable Steps**: Each section provides clear instructions on how to contribute, report issues, and submit code.
-3. **Code Style and Best Practices**: Guidelines for maintaining code quality and consistency.
-4. **License and Code of Conduct**: Information about the project's licensing and expected behavior from contributors.
-
